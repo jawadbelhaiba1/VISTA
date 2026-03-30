@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VistaMorocco — Réservez au Maroc</title>
+
+<!-- PWA Meta -->
+<meta name="theme-color" content="#1A1209">
+<meta name="description" content="Réservez riads, restaurants, excursions et activités au Maroc.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="VistaMorocco">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='100' fill='%231A1209'/><text x='256' y='340' font-size='260' text-anchor='middle' fill='%23D4A843'>✦</text></svg>">
+
+<!-- PWA Manifest (inline via blob) -->
+
+
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+
+<!-- ===== SPLASH SCREEN ===== -->
+<div id="splash">
+  <div id="splash-bg"></div>
+  <div id="splash-grid"></div>
+
+  <!-- Moroccan geometric star background -->
+  <div id="splash-ornament">
+    <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="200,20 230,110 320,80 270,160 360,180 270,220 320,300 230,270 200,360 170,270 80,300 130,220 40,180 130,160 80,80 170,110" fill="none" stroke="#D4A843" stroke-width="1.5"/>
+      <polygon points="200,60 222,125 290,100 248,160 315,180 248,200 290,260 222,235 200,300 178,235 110,260 152,200 85,180 152,160 110,100 178,125" fill="none" stroke="#D4A843" stroke-width="1"/>
+      <circle cx="200" cy="200" r="80" stroke="#D4A843" stroke-width="1"/>
+      <circle cx="200" cy="200" r="50" stroke="#D4A843" stroke-width=".5"/>
+      <polygon points="200,120 220,180 280,180 232,215 250,275 200,240 150,275 168,215 120,180 180,180" fill="none" stroke="#D4A843" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <!-- Corner accents -->
+  <div class="splash-corner tl"></div>
+  <div class="splash-corner tr"></div>
+  <div class="splash-corner bl"></div>
+  <div class="splash-corner br"></div>
+
+  <!-- Main content -->
+  <div id="splash-content">
+    <div id="splash-icon">✦</div>
+    <div id="splash-brand">
+      <span class="v1">Vista</span><span class="v2">Morocco</span>
+    </div>
+    <div id="splash-tag">Réservez au Maroc</div>
+
+    <div id="splash-progress-wrap">
+      <div id="splash-progress-track">
+        <div id="splash-progress-bar"></div>
+      </div>
+      <div id="splash-progress-label">Chargement...</div>
+    </div>
+
+    <div id="splash-dots">
+      <div class="sp-dot"></div>
+      <div class="sp-dot mid"></div>
+      <div class="sp-dot"></div>
+    </div>
+  </div>
+</div>
+<!-- ===== END SPLASH ===== -->
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="logo" onclick="showPage('home')">
+    <div class="logo-icon">✦</div>
+    <span class="logo-txt">Vista<span>Morocco</span></span>
+  </div>
+  <div class="nav-links">
+    <span class="nav-link" onclick="showPage('listings')">Hébergements</span>
+    <span class="nav-link" onclick="filterCat('Restaurants')">Restaurants</span>
+    <span class="nav-link" onclick="showPage('cars')">🚗 Location</span>
+    <span class="nav-link" onclick="showPage('sports')">Sports</span>
+    <span class="nav-link" onclick="filterCat('Excursions')">Excursions</span>
+  </div>
+  <div class="nav-actions" id="navActions">
+    <button class="btn-ghost" onclick="openAuth('login')">Connexion</button>
+    <button class="btn-primary" onclick="openAuth('register')">S'inscrire</button>
+  </div>
+  <button class="hamburger" onclick="showToast('Menu mobile — bientôt disponible')"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <section class="hero">
+    <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1539020140153-e479b8c22e70?auto=format&fit=crop&w=1600&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1600&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1597212618440-806262de4f8b?auto=format&fit=crop&w=1600&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1600&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=1600&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1534536281715-e28d76689b4d?auto=format&fit=crop&w=1600&q=80')"></div>
+    <div class="hero-ov"></div>
+    <div class="hero-cnt">
+      <div class="hero-badge">✦ Le Royaume Chérifien vous attend ✦</div>
+      <h1>Explorez le Maroc,<br><em>Réservez facilement</em></h1>
+      <p class="hero-sub">Riads, restaurants, excursions et activités — des milliers d'adresses authentiques dans tout le Maroc.</p>
+      <div class="search-box">
+        <div class="sf">
+          <div class="sf-lbl"><i class="fas fa-map-marker-alt" style="color:var(--terra)"></i> Destination</div>
+          <select id="hCity" onchange="syncCity(this.value)">
+            <option value="">Toutes les villes</option>
+            <option>Marrakech</option><option>Casablanca</option><option>Fès</option>
+            <option>Chefchaouen</option><option>Agadir</option><option>Essaouira</option>
+            <option>Rabat</option><option>El Jadida</option><option>Merzouga</option>
+          </select>
+        </div>
+        <div class="sf" style="border-right:none">
+          <div class="sf-lbl"><i class="fas fa-th-large" style="color:var(--terra)"></i> Catégorie</div>
+          <select id="hCat">
+            <option value="">Toutes catégories</option>
+            <option>Riads &amp; Hôtels</option>
+            <option>Restaurants</option>
+            <option>Cafés</option>
+            <option>Excursions</option>
+            <option>Hammams &amp; Spas</option>
+            <option>Surf &amp; Plage</option>
+            <option>Culture &amp; Visites</option>
+            <option>Sports</option>
+            <option>Location Voitures</option>
+          </select>
+        </div>
+        <button class="btn-search" onclick="doSearch()"><i class="fas fa-search"></i> Rechercher</button>
+      </div>
+      <div class="cities-strip">
+        <span class="city-pill" onclick="quickCity('Marrakech')">🕌 Marrakech</span>
+        <span class="city-pill" onclick="quickCity('Casablanca')">🏙️ Casablanca</span>
+        <span class="city-pill" onclick="quickCity('Chefchaouen')">💙 Chefchaouen</span>
+        <span class="city-pill" onclick="quickCity('Agadir')">🏖️ Agadir</span>
+        <span class="city-pill" onclick="quickCity('Merzouga')">🐪 Sahara</span>
+      </div>
+      <div class="hero-dots" id="heroDots"></div>
+
+      <!-- PWA INSTALL BANNER -->
+      <div id="pwa-banner">
+        <button class="pwa-close" onclick="dismissPWA()" aria-label="Fermer">✕</button>
+        <div class="pwa-icon">📲</div>
+        <div class="pwa-txt">
+          <div class="pwa-title">Installer VistaMorocco</div>
+          <div class="pwa-sub">Accédez à l'app sans connexion</div>
+        </div>
+        <button class="pwa-btn" onclick="installPWA()">Installer</button>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div><div class="stat-num" id="cnt1">0</div><div class="stat-lbl">Annonces</div></div>
+      <div><div class="stat-num">48</div><div class="stat-lbl">Villes</div></div>
+      <div><div class="stat-num" id="cnt2">0</div><div class="stat-lbl">Voyageurs</div></div>
+      <div><div class="stat-num">4.8★</div><div class="stat-lbl">Satisfaction</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="eyebrow">Explorer par catégorie</div>
+      <div class="sec-title">Que cherchez-vous <em>aujourd'hui ?</em></div>
+      <div class="ornament"><div class="orn-line"></div><span class="orn-star">✦</span><div class="orn-line"></div></div>
+      <div class="cat-grid">
+        <div class="cat-card" onclick="filterCat('Riads & Hôtels')">
+          <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=400&q=80" alt="Riads & Hôtels">
+          <div class="cat-card-ov"></div>
+          <div class="cat-card-body"><div class="cat-icon">🕌</div><div class="cat-name">Riads & Hôtels</div><div class="cat-count">128 annonces</div></div>
+        </div>
+        <div class="cat-card" onclick="filterCat('Restaurants')">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=400&q=80" alt="Restaurants">
+          <div class="cat-card-ov"></div>
+          <div class="cat-card-body"><div class="cat-icon">🍲</div><div class="cat-name">Restaurants</div><div class="cat-count">245 annonces</div></div>
+        </div>
+        <div class="cat-card" onclick="filterCat('Cafés')">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80" alt="Cafés">
+          <div class="cat-card-ov"></div>
+          <div class="cat-card-body"><div class="cat-icon">☕</div><div class="cat-name">Cafés</div><div class="cat-count">112 annonces</div></div>
+        </div>
+        <div class="cat-card" onclick="filterCat('Excursions')">
+          <img src="https://images.unsplash.com/photo-1534536281715-e28d76689b4d?auto=format&fit=crop&w=400&q=80" alt="Excursions">
+          <div class="cat-card-ov"></div>
+          <div class="cat-card-body"><div class="cat-icon">🐪</div><div class="cat-name">Excursions</div><div class="cat-count">96 annonces</div></div>
+        </div>
+        <div class="cat-card" onclick="filterCat('Hammams & Spas')">
+          <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=400&q=80" alt="Hammams">
+          <div class="cat-card-ov"></div>
+          <div class="cat-card-body"><div class="cat-icon">💆</div><div class="cat-name">Hammams & Spas</div><div class="cat-count">73 annonces</div></div>
+        </div>
+        <div class="cat-card" onclick="filterCat('Surf & Plage')">
+          <img src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=400&q=80" alt="Surf">
+          <div class="cat-card-ov"></div>
+          <div class="cat-card-body"><div class="cat-icon">🏄</div><div class="cat-name">Surf & Plage</div><div class="cat-count">42 annonces</div></div>
+        </div>
+        <div class="cat-card" onclick="showPage('sports')">
+          <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=400&q=80" alt="Sports">
+          <div class="cat-card-ov"></div>
+          <div class="cat-card-body"><div class="cat-icon">⚽</div><div class="cat-name">Sports</div><div class="cat-count">88 activités</div></div>
+        </div>
+        <div class="cat-card" onclick="showPage('cars')" style="outline:2px solid var(--terra);outline-offset:-2px">
+          <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=400&q=80" alt="Location Voitures">
+          <div class="cat-card-ov"></div>
+          <div class="cat-card-body"><div class="cat-icon">🚗</div><div class="cat-name" style="color:var(--gold)">Location Voitures</div><div class="cat-count">Nouveau ✨</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec sec-alt">
+    <div class="sec-inner">
+      <div class="eyebrow">Sélection du moment</div>
+      <div class="sec-title">Les meilleures adresses <em>au Maroc</em></div>
+      <div class="ornament"><div class="orn-line"></div><span class="orn-star">✦</span><div class="orn-line"></div></div>
+      <div class="grid" id="homeFeatured"></div>
+      <div style="text-align:center;margin-top:32px">
+        <button class="btn-ghost" onclick="showPage('listings')" style="padding:12px 32px;font-size:15px;border-color:var(--terra);color:var(--terra)">Voir toutes les annonces <i class="fas fa-arrow-right" style="margin-left:6px"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <div class="logo" style="margin-bottom:0"><div class="logo-icon">✦</div><span class="logo-txt">Vista<span>Morocco</span></span></div>
+        <p>La référence pour réserver au Maroc. Riads, restaurants, excursions — authentiques et vérifiés depuis 2022.</p>
+        <div class="soc-links">
+          <div class="soc-lnk"><i class="fab fa-instagram"></i></div>
+          <div class="soc-lnk"><i class="fab fa-facebook-f"></i></div>
+          <div class="soc-lnk"><i class="fab fa-tiktok"></i></div>
+        </div>
+      </div>
+      <div class="ft-col"><h4>Explorer</h4><ul>
+        <li><a onclick="quickCity('Marrakech')">Marrakech</a></li>
+        <li><a onclick="quickCity('Casablanca')">Casablanca</a></li>
+        <li><a onclick="quickCity('Fès')">Fès</a></li>
+        <li><a onclick="quickCity('Chefchaouen')">Chefchaouen</a></li>
+        <li><a onclick="quickCity('Agadir')">Agadir</a></li>
+        <li><a onclick="quickCity('Merzouga')">Sahara</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>Catégories</h4><ul>
+        <li><a onclick="filterCat('Riads & Hôtels')">Riads & Hôtels</a></li>
+        <li><a onclick="filterCat('Restaurants')">Restaurants</a></li>
+        <li><a onclick="filterCat('Excursions')">Excursions</a></li>
+        <li><a onclick="filterCat('Hammams & Spas')">Hammams</a></li>
+        <li><a onclick="showPage('sports')">Sports</a></li>
+        <li><a onclick="showPage('cars')">🚗 Location Voitures</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>VistaMorocco</h4><ul>
+        <li><a onclick="openAuth('register')">Devenir partenaire</a></li>
+        <li><a>Conditions d'utilisation</a></li>
+        <li><a>Confidentialité</a></li>
+        <li><a onclick="openAuth('login')">Connexion</a></li>
+      </ul></div>
+    </div>
+    <div class="ft-bot">
+      <span>© 2026 VistaMorocco. Tous droits réservés.</span>
+      <span>🇲🇦 Fait avec ♥ pour le Maroc</span>
+    </div>
+  </footer>
+</div>
+
+<!-- LISTINGS -->
+<div id="page-listings" class="page">
+  <div class="ph"><div class="ph-inner">
+    <div class="bc"><span onclick="showPage('home')">Accueil</span><i class="fas fa-chevron-right"></i><span id="listPageTitle">Toutes les annonces</span></div>
+    <h1 id="listPageH1">Toutes les <em>annonces</em></h1>
+    <p id="listPageSub">Riads, restaurants, excursions & activités dans tout le Maroc</p>
+  </div></div>
+  <div class="list-wrap">
+    <div class="list-bar">
+      <select id="lCity" onchange="renderListings()">
+        <option value="">Toutes les villes</option>
+        <option>Marrakech</option><option>Casablanca</option><option>Fès</option>
+        <option>Chefchaouen</option><option>Agadir</option><option>Essaouira</option>
+        <option>Rabat</option><option>El Jadida</option><option>Merzouga</option>
+      </select>
+      <select id="lCat" onchange="renderListings()">
+        <option value="">Toutes catégories</option>
+        <option>Riads & Hôtels</option><option>Restaurants</option><option>Excursions</option>
+        <option>Hammams & Spas</option><option>Surf & Plage</option><option>Culture & Visites</option>
+      </select>
+      <select id="lSort" onchange="renderListings()">
+        <option value="rating">Mieux notés</option>
+        <option value="price_asc">Prix croissant</option>
+        <option value="price_desc">Prix décroissant</option>
+      </select>
+      <button class="btn-search" style="margin:4px;padding:10px 20px" onclick="renderListings()"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="filter-row">
+      <button class="fb on" onclick="setCityFilter('',this)">Tout</button>
+      <button class="fb" onclick="setCityFilter('Marrakech',this)">🕌 Marrakech</button>
+      <button class="fb" onclick="setCityFilter('Casablanca',this)">🏙️ Casablanca</button>
+      <button class="fb" onclick="setCityFilter('Fès',this)">🏺 Fès</button>
+      <button class="fb" onclick="setCityFilter('Agadir',this)">🏖️ Agadir</button>
+      <button class="fb" onclick="setCityFilter('Chefchaouen',this)">💙 Chefchaouen</button>
+      <button class="fb" onclick="setCityFilter('Essaouira',this)">🌊 Essaouira</button>
+      <button class="fb" onclick="setCityFilter('El Jadida',this)">🏰 El Jadida</button>
+      <button class="fb" onclick="setCityFilter('Merzouga',this)">🐪 Merzouga</button>
+      <span class="res-cnt" id="resCnt"></span>
+    </div>
+    <div class="grid" id="listGrid"></div>
+  </div>
+</div>
+
+<!-- DETAIL -->
+<div id="page-detail" class="page">
+  <div id="detailContent"></div>
+</div>
+
+<!-- CARS PAGE -->
+<div id="page-cars" class="page">
+  <div class="ph">
+    <div class="ph-inner">
+      <div class="bc"><span onclick="showPage('home')">Accueil</span><i class="fas fa-chevron-right"></i><span>Location de Voitures</span></div>
+      <h1>🚗 Location de <em>Voitures</em></h1>
+      <p>Citadines, SUV, sportives & utilitaires — disponibles dans tout le Maroc</p>
+    </div>
+  </div>
+
+  <!-- CAR WASH BANNER -->
+  <div class="sec" style="padding:32px 5% 0">
+    <div class="sec-inner">
+      <div style="display:flex;align-items:center;gap:32px;background:linear-gradient(135deg,#0a1628,#0d2240);border:1.5px solid rgba(30,136,229,.3);border-radius:20px;padding:28px 36px;cursor:pointer;position:relative;overflow:hidden;transition:all .3s;box-shadow:0 8px 40px rgba(30,136,229,.12)" onclick="openCarWash()" onmouseover="this.style.borderColor='rgba(30,136,229,.7)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(30,136,229,.3)';this.style.transform=''">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 50%,rgba(30,136,229,.07),transparent 70%)"></div>
+        <div style="font-size:56px;flex-shrink:0;filter:drop-shadow(0 4px 12px rgba(30,136,229,.4));position:relative">🚿</div>
+        <div style="flex:1;position:relative">
+          <div style="font-size:11px;color:#1e88e5;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;opacity:.9">✨ SERVICE PREMIUM</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;color:#fff;line-height:1;margin-bottom:8px;text-shadow:0 0 30px rgba(30,136,229,.3)">LAVAGE AUTO MOBILE</div>
+          <div style="font-size:14px;color:rgba(255,255,255,.5);margin-bottom:14px">On vient chez vous · Équipement pro · Résultat garanti</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.65);background:rgba(30,136,229,.12);border:1px solid rgba(30,136,229,.25);border-radius:50px;padding:4px 12px">🧴 Produits pro</span>
+            <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.65);background:rgba(30,136,229,.12);border:1px solid rgba(30,136,229,.25);border-radius:50px;padding:4px 12px">🚐 Van équipé</span>
+            <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.65);background:rgba(30,136,229,.12);border:1px solid rgba(30,136,229,.25);border-radius:50px;padding:4px 12px">📍 Déplacement gratuit</span>
+            <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.65);background:rgba(30,136,229,.12);border:1px solid rgba(30,136,229,.25);border-radius:50px;padding:4px 12px">⏱ 45 min chrono</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:14px;flex-shrink:0">
+          <div style="display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#1e88e5,#1565c0);color:#fff;font-weight:900;font-size:15px;padding:14px 24px;border-radius:12px;font-family:'Bebas Neue',sans-serif;letter-spacing:1px;box-shadow:0 6px 24px rgba(30,136,229,.45);white-space:nowrap">Réserver →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAR WASH MODAL -->
+  <div id="carWashModal" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(10,10,20,.85);backdrop-filter:blur(8px);overflow-y:auto;padding:20px" onclick="if(event.target===this)closeCarWash()">
+    <div style="max-width:900px;margin:0 auto;background:#0d1b2a;border-radius:24px;border:1px solid rgba(30,136,229,.2);overflow:hidden">
+      <!-- Header -->
+      <div style="background:linear-gradient(135deg,#0a1628,#0d2240);padding:28px 32px;border-bottom:1px solid rgba(30,136,229,.15);display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-size:11px;color:#1e88e5;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">Service Premium</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;color:#fff">🚿 LAVAGE AUTO MOBILE</div>
+        </div>
+        <button onclick="closeCarWash()" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;color:#fff;font-size:20px;cursor:pointer;padding:8px 14px;line-height:1">✕</button>
+      </div>
+
+      <!-- Hero image - van équipé -->
+      <div style="position:relative;height:280px;overflow:hidden">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80" alt="Van lavage mobile" style="width:100%;height:100%;object-fit:cover" onerror="this.src='https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=900&q=80'">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(13,27,42,.95) 0%,rgba(13,27,42,.3) 60%,transparent 100%)"></div>
+        <div style="position:absolute;bottom:20px;left:32px;right:32px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:#fff;margin-bottom:6px">Le salon de votre voiture, devant chez vous</div>
+          <div style="font-size:14px;color:rgba(255,255,255,.55)">Notre technicien arrive avec son van entièrement équipé — eau, produits, aspirateur, polish.</div>
+        </div>
+      </div>
+
+      <div style="padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:32px">
+        <!-- Left: Images + details -->
+        <div>
+          <!-- Photo grid -->
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:14px">Notre équipement</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px">
+            <div style="border-radius:12px;overflow:hidden;height:130px"><img src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=400&q=80" alt="Produits lavage" style="width:100%;height:100%;object-fit:cover" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=400&q=80'"></div>
+            <div style="border-radius:12px;overflow:hidden;height:130px"><img src="https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=400&q=80" alt="Nettoyage voiture" style="width:100%;height:100%;object-fit:cover"></div>
+            <div style="border-radius:12px;overflow:hidden;height:130px"><img src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?auto=format&fit=crop&w=400&q=80" alt="Aspirateur voiture" style="width:100%;height:100%;object-fit:cover" onerror="this.src='https://images.unsplash.com/photo-1609861600902-a91e1c8e97b2?auto=format&fit=crop&w=400&q=80'"></div>
+            <div style="border-radius:12px;overflow:hidden;height:130px"><img src="https://images.unsplash.com/photo-1609861600902-a91e1c8e97b2?auto=format&fit=crop&w=400&q=80" alt="Polissage" style="width:100%;height:100%;object-fit:cover" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=400&q=80'"></div>
+          </div>
+          <!-- Inclus -->
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:12px">Ce qui est inclus</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            ${['🧴 Shampoing carrosserie','💨 Soufflage jantes','🪣 Rinçage haute pression','✨ Polish & cire','🧹 Aspiration intérieur','🪟 Vitres intérieur/extérieur','🌸 Désodorisant','📸 Photos avant/après'].map(a=>`<div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.65);padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05)">${a}</div>`).join('')}
+          </div>
+        </div>
+
+        <!-- Right: Booking form -->
+        <div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(30,136,229,.2);border-radius:16px;padding:24px">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:4px">Réserver le service</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:20px">Disponible 7j/7 · 8h–20h</div>
+
+            <div style="margin-bottom:14px">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.4);margin-bottom:6px">Type de véhicule</div>
+              <select id="cwVehicle" style="width:100%;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(30,136,229,.25);background:rgba(255,255,255,.06);color:#fff;font-family:'Jost',sans-serif;font-size:14px;outline:none" onchange="updateCWPrice()">
+                <option value="150">Citadine — 150 MAD</option>
+                <option value="200">Berline — 200 MAD</option>
+                <option value="250">SUV / 4x4 — 250 MAD</option>
+                <option value="300">Minivan / Utilitaire — 300 MAD</option>
+              </select>
+            </div>
+
+            <div style="margin-bottom:14px">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.4);margin-bottom:6px">Formule</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <div class="cw-formula on" data-extra="0" onclick="selectCWFormula(this,0)" style="border:1.5px solid #1e88e5;background:rgba(30,136,229,.12);border-radius:10px;padding:12px;cursor:pointer;text-align:center;transition:all .2s">
+                  <div style="font-size:18px">💧</div>
+                  <div style="font-size:13px;font-weight:700;color:#fff;margin:4px 0">Lavage Simple</div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.4)">Extérieur complet</div>
+                </div>
+                <div class="cw-formula" data-extra="100" onclick="selectCWFormula(this,100)" style="border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);border-radius:10px;padding:12px;cursor:pointer;text-align:center;transition:all .2s">
+                  <div style="font-size:18px">✨</div>
+                  <div style="font-size:13px;font-weight:700;color:#fff;margin:4px 0">Full Detailing</div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.4)">+100 MAD</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-bottom:14px">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.4);margin-bottom:6px">Adresse</div>
+              <input type="text" placeholder="Ex: Hay Riad, Rabat" id="cwAddress" style="width:100%;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(30,136,229,.25);background:rgba(255,255,255,.06);color:#fff;font-family:'Jost',sans-serif;font-size:14px;outline:none;margin-bottom:8px" onerror="">
+              <input type="text" placeholder="Date & heure souhaitée" id="cwDate" style="width:100%;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(30,136,229,.25);background:rgba(255,255,255,.06);color:#fff;font-family:'Jost',sans-serif;font-size:14px;outline:none">
+            </div>
+
+            <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:16px;margin-bottom:16px">
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:rgba(255,255,255,.45);margin-bottom:6px"><span>Lavage</span><span id="cwPriceBase">150 MAD</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:rgba(255,255,255,.45);margin-bottom:6px"><span>Déplacement</span><span style="color:#2d7a4f">Gratuit</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:16px;font-weight:700;color:#fff;border-top:1px solid rgba(255,255,255,.08);padding-top:10px;margin-top:4px"><span>Total</span><span id="cwPriceTotal" style="color:#1e88e5">150 MAD</span></div>
+            </div>
+
+            <button onclick="bookCarWash()" style="width:100%;padding:15px;border-radius:12px;border:none;background:linear-gradient(135deg,#1e88e5,#1565c0);color:#fff;font-family:'Jost',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(30,136,229,.5)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+              🚿 Confirmer le lavage
+            </button>
+            <p style="font-size:12px;color:rgba(255,255,255,.25);text-align:center;margin-top:10px">⏱ Durée : 45 min · Paiement sur place</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAR TYPES SECTION -->
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="eyebrow">Notre flotte</div>
+      <div class="sec-title">Choisissez votre <em>véhicule</em></div>
+      <div class="ornament"><div class="orn-line"></div><span class="orn-star">✦</span><div class="orn-line"></div></div>
+
+      <!-- Filter tabs -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin:20px 0" id="carTypeFilter">
+        <button class="comp-badge on" onclick="filterCarType('',this)">🚗 Tous</button>
+        <button class="comp-badge" onclick="filterCarType('Citadine',this)">🚙 Citadines</button>
+        <button class="comp-badge" onclick="filterCarType('Berline',this)">🚘 Berlines</button>
+        <button class="comp-badge" onclick="filterCarType('SUV',this)">🛻 SUV / 4x4</button>
+        <button class="comp-badge" onclick="filterCarType('Sportive',this)">🏎️ Sportives</button>
+        <button class="comp-badge" onclick="filterCarType('Utilitaire',this)">🚐 Utilitaires</button>
+      </div>
+
+      <div class="grid" id="carsGrid" style="margin-top:8px"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <div class="logo" style="margin-bottom:0"><div class="logo-icon">✦</div><span class="logo-txt">Vista<span>Morocco</span></span></div>
+        <p>La référence pour réserver au Maroc. Voitures, riads, restaurants — authentiques et vérifiés.</p>
+      </div>
+      <div class="ft-col"><h4>Location</h4><ul>
+        <li><a onclick="filterCarType('Citadine',document.querySelector('.comp-badge'))">Citadines</a></li>
+        <li><a onclick="filterCarType('SUV',document.querySelector('.comp-badge'))">SUV & 4x4</a></li>
+        <li><a onclick="filterCarType('Sportive',document.querySelector('.comp-badge'))">Sportives</a></li>
+        <li><a onclick="openCarWash()">🚿 Lavage Mobile</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>VistaMorocco</h4><ul>
+        <li><a onclick="showPage('home')">Accueil</a></li>
+        <li><a onclick="showPage('listings')">Hébergements</a></li>
+        <li><a onclick="showPage('sports')">Sports</a></li>
+        <li><a onclick="openAuth('login')">Connexion</a></li>
+      </ul></div>
+    </div>
+    <div class="ft-bot">
+      <span>© 2026 VistaMorocco. Tous droits réservés.</span>
+      <span>🇲🇦 Fait avec ♥ pour le Maroc</span>
+    </div>
+  </footer>
+</div>
+
+<!-- SPORTS -->
+<div id="page-sports" class="page">
+  <div class="ph"><div class="ph-inner">
+    <div class="bc"><span onclick="showPage('home')">Accueil</span><i class="fas fa-chevron-right"></i><span>Sports & Activités</span></div>
+    <h1>Sports & <em>Activités</em></h1>
+    <p>Football, padel, surf, randonnée & bien plus dans tout le Maroc</p>
+  </div></div>
+
+  <div class="sec sec-dark" style="padding:40px 5%">
+    <div class="sec-inner">
+      <div class="fb-banner" onclick="openLineUp()">
+        <div class="fb-ball-wrap"><div class="fb-ball"><div class="fb-ball-in"></div></div></div>
+        <div class="fb-txt">
+          <div class="fb-ey">⚽ FOOTBALL INTERACTIF</div>
+          <div class="fb-title">LINE UP FUTSAL</div>
+          <div class="fb-sub">Créez votre formation · Ajoutez des photos · Partagez votre équipe</div>
+          <div class="fb-feats"><span>📸 Photos joueurs</span><span>🎮 Drag & Drop</span><span>🏆 6 formations</span><span>💾 Export PNG</span></div>
+        </div>
+        <div class="fb-cta-side">
+          <div class="fb-cta-btn"><span>Créer ma formation</span><i class="fas fa-arrow-right"></i></div>
+          <div class="fb-mini"><div class="fm-line"></div><div class="fm-circle"></div>
+            <div class="fm-dot" style="left:50%;top:85%"></div><div class="fm-dot" style="left:25%;top:65%"></div>
+            <div class="fm-dot" style="left:75%;top:65%"></div><div class="fm-dot" style="left:25%;top:40%"></div>
+            <div class="fm-dot" style="left:75%;top:40%"></div><div class="fm-dot" style="left:50%;top:18%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="eyebrow">Filtrer par ville</div>
+      <div class="sec-title">Sports par <em>destination</em></div>
+      <div class="ornament"><div class="orn-line"></div><span class="orn-star">✦</span><div class="orn-line"></div></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:20px" id="sportsCityFilter">
+        <button class="comp-badge on" onclick="filterSportsCity('',this)">🇲🇦 Toutes</button>
+        <button class="comp-badge" onclick="filterSportsCity('Casablanca',this)">🏙️ Casablanca</button>
+        <button class="comp-badge" onclick="filterSportsCity('Marrakech',this)">🕌 Marrakech</button>
+        <button class="comp-badge" onclick="filterSportsCity('Fès',this)">🏺 Fès</button>
+        <button class="comp-badge" onclick="filterSportsCity('Rabat',this)">👑 Rabat</button>
+        <button class="comp-badge" onclick="filterSportsCity('Agadir',this)">🏖️ Agadir</button>
+        <button class="comp-badge" onclick="filterSportsCity('Essaouira',this)">🌊 Essaouira</button>
+        <button class="comp-badge" onclick="filterSportsCity('Chefchaouen',this)">💙 Chefchaouen</button>
+        <button class="comp-badge" onclick="filterSportsCity('El Jadida',this)">🏰 El Jadida</button>
+        <button class="comp-badge" onclick="filterSportsCity('Merzouga',this)">🐪 Merzouga</button>
+      </div>
+      <div id="spResCnt" style="font-size:13px;color:var(--muted);margin-top:12px"></div>
+    </div>
+  </div>
+
+  <div class="sec sec-white" style="padding:20px 5% 0">
+    <div class="sec-inner">
+      <div class="eyebrow">Filtrer par sport</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px" id="sportsTypeFilter">
+        <button class="comp-badge on" onclick="filterSportsType('',this)">🏅 Tous les sports</button>
+        <button class="comp-badge" onclick="filterSportsType('Football',this)">⚽ Football</button>
+        <button class="comp-badge" onclick="filterSportsType('Padel',this)">🎾 Padel</button>
+        <button class="comp-badge" onclick="filterSportsType('Surf',this)">🏄 Surf</button>
+        <button class="comp-badge" onclick="filterSportsType('Tennis',this)">🥎 Tennis</button>
+        <button class="comp-badge" onclick="filterSportsType('Basketball',this)">🏀 Basketball</button>
+        <button class="comp-badge" onclick="filterSportsType('Natation',this)">🏊 Natation</button>
+        <button class="comp-badge" onclick="filterSportsType('Cyclisme',this)">🚴 Cyclisme</button>
+        <button class="comp-badge" onclick="filterSportsType('Golf',this)">⛳ Golf</button>
+        <button class="comp-badge" onclick="filterSportsType('Randonnée',this)">🥾 Randonnée</button>
+        <button class="comp-badge" onclick="filterSportsType('Kitesurf',this)">🪁 Kitesurf</button>
+        <button class="comp-badge" onclick="filterSportsType('Quad',this)">🏍️ Quad</button>
+        <button class="comp-badge" onclick="filterSportsType('Escalade',this)">🧗 Escalade</button>
+        <button class="comp-badge" onclick="filterSportsType('Boxe',this)">🥊 Boxe</button>
+        <button class="comp-badge" onclick="filterSportsType('Yoga',this)">🧘 Yoga</button>
+        <button class="comp-badge" onclick="filterSportsType('Fitness',this)">💪 Fitness</button>
+        <button class="comp-badge" onclick="filterSportsType('Hammam',this)">🧖 Hammam</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec sec-alt">
+    <div class="sec-inner">
+      <div class="eyebrow">Terrains de football</div>
+      <div class="sec-title">Réservez votre <em>terrain</em></div>
+      <div class="ornament"><div class="orn-line"></div><span class="orn-star">✦</span><div class="orn-line"></div></div>
+      <div class="grid" id="footballGrid" style="margin-top:20px"></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="eyebrow">Toutes les activités</div>
+      <div class="sec-title">Sports & <em>Loisirs</em></div>
+      <div class="ornament"><div class="orn-line"></div><span class="orn-star">✦</span><div class="orn-line"></div></div>
+      <div class="grid" id="sportsGrid" style="margin-top:20px"></div>
+    </div>
+  </div>
+</div>
+
+<!-- LINEUP MODAL -->
+<div class="lu-modal" id="lineupModal">
+  <div class="lu-topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="lu-logo">⚽ LINE UP FUTSAL</div>
+      <div style="font-size:10px;color:#8892a4;text-transform:uppercase;letter-spacing:1px">by VistaMorocco</div>
+    </div>
+    <div class="lu-topbtns">
+      <button onclick="luExport()" style="padding:8px 16px;background:#00c853;border:none;border-radius:8px;color:#000;font-weight:700;font-size:12px;cursor:pointer;font-family:'Jost',sans-serif">📸 Sauvegarder</button>
+      <button onclick="luShare()" style="padding:8px 16px;background:#ffd600;border:none;border-radius:8px;color:#000;font-weight:700;font-size:12px;cursor:pointer;font-family:'Jost',sans-serif">🔗 Partager</button>
+      <button onclick="closeLineUp()" style="padding:8px 14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#fff;font-size:18px;cursor:pointer;line-height:1">✕</button>
+    </div>
+  </div>
+  <div class="lu-body">
+    <div class="lu-panel lu-panel-l">
+      <div class="lu-lbl">🗂️ التشكيلة</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:6px" id="lu-fgrid">
+        <button class="lu-form-btn on" onclick="luSetForm('1-2-2',this)">2-2</button>
+        <button class="lu-form-btn" onclick="luSetForm('1-1-2-1',this)">1-2-1</button>
+        <button class="lu-form-btn" onclick="luSetForm('1-3-1',this)">3-1</button>
+        <button class="lu-form-btn" onclick="luSetForm('1-1-3',this)">1-3</button>
+        <button class="lu-form-btn" onclick="luSetForm('1-2-1-1',this)">2-1-1</button>
+        <button class="lu-form-btn" onclick="luSetForm('diamond',this)">◆</button>
+      </div>
+      <div class="lu-lbl">👕 اسم الفريق</div>
+      <input class="lu-team-in" id="lu-tA" value="FC STARS" oninput="luUpdateTeam('A')">
+      <input class="lu-team-in" id="lu-tB" value="FC LIONS" oninput="luUpdateTeam('B')" style="margin-top:5px">
+      <div class="lu-lbl">🎨 Couleur maillot</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap" id="lu-swatches">
+        <div class="lu-sw on" style="background:#1565c0" onclick="luSetColor('#1565c0',this)"></div>
+        <div class="lu-sw" style="background:#c62828" onclick="luSetColor('#c62828',this)"></div>
+        <div class="lu-sw" style="background:#2e7d32" onclick="luSetColor('#2e7d32',this)"></div>
+        <div class="lu-sw" style="background:#f9a825" onclick="luSetColor('#f9a825',this)"></div>
+        <div class="lu-sw" style="background:#6a1b9a" onclick="luSetColor('#6a1b9a',this)"></div>
+        <div class="lu-sw" style="background:#111" onclick="luSetColor('#111',this)"></div>
+        <div class="lu-sw" style="background:#ff6f00" onclick="luSetColor('#ff6f00',this)"></div>
+        <div class="lu-sw" style="background:#00838f" onclick="luSetColor('#00838f',this)"></div>
+        <div class="lu-sw" style="background:#e91e63" onclick="luSetColor('#e91e63',this)"></div>
+        <div class="lu-sw" style="background:#607d8b" onclick="luSetColor('#607d8b',this)"></div>
+      </div>
+      <div class="lu-lbl">📋 Infos match</div>
+      <input class="lu-match-in" id="lu-date" value="20/03/2026" oninput="luUpdateInfo()">
+      <input class="lu-match-in" id="lu-venue" value="Salle de Sport" style="margin-top:5px" oninput="luUpdateInfo()">
+      <input class="lu-match-in" id="lu-comp" value="Championnat Futsal" style="margin-top:5px" oninput="luUpdateInfo()">
+      <div class="lu-lbl" style="margin-top:8px">🎭 Score</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <input type="number" style="flex:1;padding:8px;background:#0d2018;border:1.5px solid rgba(0,200,83,.3);border-radius:8px;color:#fff;font-size:20px;font-weight:900;text-align:center;font-family:'Bebas Neue',sans-serif;outline:none" id="lu-sA" value="0" min="0" oninput="document.getElementById('lu-scoreA').textContent=this.value">
+        <span style="color:#8892a4;font-size:16px">—</span>
+        <input type="number" style="flex:1;padding:8px;background:#0d2018;border:1.5px solid rgba(0,200,83,.3);border-radius:8px;color:#fff;font-size:20px;font-weight:900;text-align:center;font-family:'Bebas Neue',sans-serif;outline:none" id="lu-sB" value="0" min="0" oninput="document.getElementById('lu-scoreB').textContent=this.value">
+      </div>
+      <div style="margin-top:auto;padding-top:12px;display:flex;flex-direction:column;gap:7px">
+        <button class="lu-gbtn grn" onclick="luAddPlayer()">+ إضافة لاعب</button>
+        <button class="lu-gbtn out" onclick="luReset()">🔄 Reset</button>
+      </div>
+    </div>
+    <div class="lu-pitch-wrap">
+      <div class="lu-pitch" id="lu-pitch" style="width:min(320px,calc((100vh - 120px)*.59));height:min(540px,calc(100vh - 120px))">
+        <div class="lu-pitch-bg"></div><div class="lu-pitch-str"></div><div class="lu-pitch-ln"></div>
+        <div class="lu-bn lu-bn-t">
+          <div class="lu-logo-c" onclick="luUploadLogo('A')" id="lu-logoA">⚽</div>
+          <div class="lu-team-disp" id="lu-tdA">FC STARS</div>
+        </div>
+        <div class="lu-bn lu-bn-b">
+          <div class="lu-logo-c" onclick="luUploadLogo('B')" id="lu-logoB">🦁</div>
+          <div class="lu-team-disp" id="lu-tdB">FC LIONS</div>
+        </div>
+        <div class="lu-score-box">
+          <div><div class="lu-sc-lbl">Équipe A</div><div class="lu-sc-num" id="lu-scoreA">0</div></div>
+          <div class="lu-sc-sep">—</div>
+          <div><div class="lu-sc-lbl">Équipe B</div><div class="lu-sc-num" id="lu-scoreB">0</div></div>
+        </div>
+        <div class="lu-info-bdg">
+          <div class="lu-ir">📅 <span id="lu-bDate">20/03/2026</span></div>
+          <div class="lu-ir">🏟️ <span id="lu-bVenue">Salle de Sport</span></div>
+          <div class="lu-ir">🏆 <span id="lu-bComp">Championnat</span></div>
+        </div>
+        <div class="lu-players" id="lu-players"></div>
+        <div class="lu-ball"><div class="lu-ball-in"></div></div>
+      </div>
+    </div>
+    <div class="lu-panel lu-panel-r">
+      <div class="lu-lbl">👥 اللاعبون</div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:5px;overflow-y:auto;min-height:0" id="lu-list"></div>
+      <button class="lu-add" onclick="luAddPlayer()" style="margin-top:8px">+ إضافة لاعب</button>
+      <div class="lu-lbl" style="margin-top:10px">🔄 الاحتياط</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap" id="lu-bench"></div>
+      <button class="lu-add" onclick="luAddBench()" style="margin-top:6px;font-size:11px;padding:7px">+ Remplaçant</button>
+      <div style="margin-top:12px;background:#071208;border:1px solid rgba(0,200,83,.15);border-radius:10px;padding:12px">
+        <div style="font-size:10px;color:#00c853;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Comment utiliser</div>
+        <div style="font-size:11px;color:#8892a4;line-height:1.8">
+          📷 <strong style="color:#fff">Clic 📷</strong> → ajouter photo<br>
+          ✋ <strong style="color:#fff">Glisser</strong> pour repositionner<br>
+          ✏️ <strong style="color:#fff">Clic nom</strong> → modifier<br>
+          © <strong style="color:#fff">© </strong> → capitaine
+        </div>
+      </div>
+    </div>
+  </div>
+  <input type="file" id="lu-upPlayer" accept="image/*" style="display:none" onchange="luHandleImg(event)">
+  <input type="file" id="lu-upLogoA" accept="image/*" style="display:none" onchange="luHandleLogo(event,'A')">
+  <input type="file" id="lu-upLogoB" accept="image/*" style="display:none" onchange="luHandleLogo(event,'B')">
+</div>
+
+<!-- AUTH MODAL -->
+<div class="modal-ov" id="authModal" onclick="closeOv(event,'authModal')">
+  <div class="modal-box">
+    <button class="mc" onclick="closeModal('authModal')"><i class="fas fa-times"></i></button>
+    <div class="m-logo"><div class="logo" style="justify-content:center"><div class="logo-icon">✦</div><span class="logo-txt" style="color:var(--midnight)">Vista<span>Morocco</span></span></div></div>
+    <div class="auth-tabs">
+      <button class="at on" id="atLogin" onclick="switchAuth('login')">Connexion</button>
+      <button class="at" id="atReg" onclick="switchAuth('register')">S'inscrire</button>
+    </div>
+    <div id="formLogin">
+      <div class="m-sub">Accédez à votre espace personnel</div>
+      <button class="soc-btn" onclick="socialLogin('Google')"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg> Continuer avec Google</button>
+      <div class="divider">ou par email</div>
+      <div class="fl"><label>Email</label><input type="email" id="lEmail" placeholder="vous@exemple.com"></div>
+      <div class="fl"><label>Mot de passe</label><input type="password" id="lPwd" placeholder="••••••••"></div>
+      <button class="btn-submit" onclick="doLogin()">Se connecter</button>
+      <p style="text-align:center;font-size:13px;color:var(--muted);margin-top:12px"><a href="#" style="color:var(--terra)">Mot de passe oublié ?</a></p>
+    </div>
+    <div id="formReg" style="display:none">
+      <div class="m-sub">Gratuit — aucune carte requise</div>
+      <button class="soc-btn" onclick="socialLogin('Google')"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg> S'inscrire avec Google</button>
+      <div class="divider">ou par email</div>
+      <div class="fl-row"><div class="fl"><label>Prénom</label><input type="text" id="rFirst" placeholder="Mohammed"></div><div class="fl"><label>Nom</label><input type="text" id="rLast" placeholder="El Idrissi"></div></div>
+      <div class="fl"><label>Email</label><input type="email" id="rEmail" placeholder="vous@exemple.com"></div>
+      <div class="fl"><label>Mot de passe (min. 8 car.)</label><input type="password" id="rPwd" placeholder="••••••••" oninput="chkPwd(this.value)"><div class="pwd-bar"><div class="pwd-fill" id="pwdFill"></div></div></div>
+      <div class="fl"><label>Téléphone</label><input type="tel" id="rPhone" placeholder="+212 6 00 00 00 00"></div>
+      <button class="btn-submit" onclick="doRegister()">Créer mon compte gratuitement</button>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING MODAL -->
+<div class="modal-ov" id="bookingModal" onclick="closeOv(event,'bookingModal')">
+  <div class="bk-modal-box">
+    <div class="bk-hd">
+      <div class="bk-hd-title" id="bkTitle">Réservation</div>
+      <button class="mc" style="position:static;margin-left:auto" onclick="closeModal('bookingModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="bk-steps">
+      <div class="bstep on" id="bs1"><div class="bstep-c">1</div><div class="bstep-lbl">Dates</div></div>
+      <div class="bstep-ln"></div>
+      <div class="bstep" id="bs2"><div class="bstep-c">2</div><div class="bstep-lbl">Paiement</div></div>
+      <div class="bstep-ln"></div>
+      <div class="bstep" id="bs3"><div class="bstep-c">✓</div><div class="bstep-lbl">Confirmé</div></div>
+    </div>
+    <!-- Step 1 -->
+    <div class="bk-panel on" id="bp1">
+      <div style="background:var(--sand);border-radius:12px;padding:14px;margin-bottom:16px;display:flex;gap:12px;align-items:center">
+        <img id="bkImg" src="" style="width:64px;height:64px;border-radius:10px;object-fit:cover;flex-shrink:0" alt="">
+        <div><div style="font-weight:700;font-size:15px;font-family:'Cormorant Garamond',serif" id="bkName"></div><div style="font-size:13px;color:var(--muted)" id="bkLoc"></div><div style="font-size:14px;font-weight:700;color:var(--terra)" id="bkPriceLbl"></div></div>
+      </div>
+      <div class="date-row">
+        <div class="df"><div class="df-lbl">Arrivée</div><input type="date" id="bkIn" onchange="calcBk()"></div>
+        <div class="df"><div class="df-lbl">Départ</div><input type="date" id="bkOut" onchange="calcBk()"></div>
+      </div>
+      <div class="g-field" style="margin-bottom:14px">
+        <div class="df-lbl">Voyageurs</div>
+        <select id="bkGuests" style="border:none;outline:none;font-family:'Jost',sans-serif;font-size:14px;font-weight:600;color:var(--midnight);background:transparent"><option>1 personne</option><option selected>2 personnes</option><option>3 personnes</option><option>4 personnes</option><option>5+</option></select>
+      </div>
+      <div id="bkPB" style="display:none;border-top:1px solid var(--border);padding-top:12px;margin-bottom:12px">
+        <div class="pr"><span id="pbN"></span><span id="pbNC"></span></div>
+        <div class="pr"><span>Frais de service (12%)</span><span id="pbF"></span></div>
+        <div class="pr tot"><span>Total</span><span id="pbT" style="color:var(--terra)"></span></div>
+      </div>
+      <button class="btn-book-now" onclick="bkNext()">Continuer vers le paiement →</button>
+      <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:6px"><i class="fas fa-shield-alt" style="color:var(--green)"></i> Annulation gratuite 48h avant l'arrivée</p>
+
+      <!-- Football Lineup Section (affiché uniquement pour les terrains de foot) -->
+      <div id="bkFootballSection" style="display:none;margin-top:20px;border-top:1px solid var(--border);padding-top:16px">
+        <div style="background:linear-gradient(135deg,#071a0b,#0a2410);border:1.5px solid rgba(0,200,83,.3);border-radius:14px;padding:16px">
+          <div style="font-size:10px;color:#00c853;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px">⚽ Composez votre équipe</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:4px">Créer ma formation</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.45);margin-bottom:14px">Ajoutez vos joueurs, photos, numéros et positions avant de réserver</div>
+          <div style="margin-bottom:12px">
+            <div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Nom de l'équipe</div>
+            <input type="text" id="bkTeamName" placeholder="ex: FC Stars Marrakech" style="width:100%;padding:10px 14px;border-radius:9px;border:1.5px solid rgba(0,200,83,.25);background:rgba(255,255,255,.06);color:#fff;font-family:'Jost',sans-serif;font-size:14px;outline:none">
+          </div>
+          <div style="margin-bottom:12px">
+            <div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Nombre de joueurs</div>
+            <select id="bkPlayerCount" style="width:100%;padding:10px 14px;border-radius:9px;border:1.5px solid rgba(0,200,83,.25);background:rgba(255,255,255,.06);color:#fff;font-family:'Jost',sans-serif;font-size:14px;outline:none">
+              <option value="5">5 joueurs (Futsal)</option>
+              <option value="7">7 joueurs (Football 7)</option>
+              <option value="11">11 joueurs (Football 11)</option>
+            </select>
+          </div>
+          <div id="bkPlayersList" style="display:flex;flex-direction:column;gap:7px;margin-bottom:12px;max-height:200px;overflow-y:auto"></div>
+          <button onclick="bkAddPlayer()" style="width:100%;padding:9px;border-radius:9px;border:1.5px dashed rgba(0,200,83,.4);background:transparent;color:#00c853;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s" onmouseover="this.style.background='rgba(0,200,83,.08)'" onmouseout="this.style.background='transparent'">+ Ajouter un joueur</button>
+          <button onclick="openLineUp()" style="width:100%;margin-top:8px;padding:10px;border-radius:9px;border:none;background:linear-gradient(135deg,#00c853,#007c33);color:#000;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;cursor:pointer;transition:all .2s" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">⚽ Ouvrir l'éditeur complet</button>
+        </div>
+      </div>
+    </div>
+    <!-- Step 2 -->
+    <div class="bk-panel" id="bp2">
+      <div class="pay-methods">
+        <div class="pm on" onclick="selPay(this,'card')"><div class="pm-icon">💳</div><div class="pm-lbl">Carte</div></div>
+        <div class="pm" onclick="selPay(this,'paypal')"><div class="pm-icon">🅿️</div><div class="pm-lbl">PayPal</div></div>
+        <div class="pm" onclick="selPay(this,'apple')"><div class="pm-icon">🍎</div><div class="pm-lbl">Apple Pay</div></div>
+      </div>
+      <div id="cardFlds">
+        <div style="position:relative;margin-bottom:10px"><input type="text" style="width:100%;padding:11px 48px 11px 14px;border-radius:10px;border:1.5px solid var(--border);font-family:'Jost',sans-serif;font-size:14px;outline:none" placeholder="1234 5678 9012 3456" maxlength="19" oninput="fmtCard(this)"><span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:18px">💳</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+          <input type="text" style="padding:11px 14px;border-radius:10px;border:1.5px solid var(--border);font-family:'Jost',sans-serif;font-size:14px;outline:none" placeholder="MM/AA" maxlength="5" oninput="fmtExp(this)">
+          <input type="password" style="padding:11px 14px;border-radius:10px;border:1.5px solid var(--border);font-family:'Jost',sans-serif;font-size:14px;outline:none" placeholder="CVV" maxlength="4">
+        </div>
+        <input type="text" style="width:100%;padding:11px 14px;border-radius:10px;border:1.5px solid var(--border);font-family:'Jost',sans-serif;font-size:14px;outline:none;margin-bottom:10px" placeholder="Nom sur la carte">
+      </div>
+      <div style="background:var(--sand);border-radius:10px;padding:12px;margin-bottom:14px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px"><i class="fas fa-lock" style="color:var(--green)"></i> Paiement sécurisé SSL · Stripe · PCI DSS</div>
+      <div style="display:flex;justify-content:space-between;font-weight:700;font-size:16px;margin-bottom:16px"><span>Total à payer</span><span style="color:var(--terra)" id="bkTotal2"></span></div>
+      <button class="btn-book-now" id="payBtn" onclick="processPayment()"><i class="fas fa-lock"></i> Payer maintenant</button>
+    </div>
+    <!-- Step 3 -->
+    <div class="bk-panel" id="bp3" style="text-align:center;padding:32px 24px">
+      <div class="conf-icon">✅</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--midnight);margin-bottom:8px">Réservation confirmée !</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:20px">Référence : <strong style="color:var(--terra);font-size:16px" id="confRef"></strong></p>
+      <div style="background:var(--sand);border-radius:12px;padding:16px;margin-bottom:20px;text-align:left;font-size:14px;color:var(--muted);line-height:2" id="confDetails"></div>
+      <button class="btn-book-now" onclick="closeModal('bookingModal');showToast('📧 Email de confirmation envoyé !','ok')">Parfait, merci !</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg"></span></div>
+
+
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="if(event.target===this||event.target.id==='lightbox')closeLB()">
+  <button id="lb-close" onclick="closeLB()">✕</button>
+  <button class="lb-nav" id="lb-prev" onclick="lbNav(-1)">‹</button>
+  <img id="lb-img" src="" alt="">
+  <button class="lb-nav" id="lb-next" onclick="lbNav(1)">›</button>
+  <div id="lb-thumbs"></div>
+  <div id="lb-counter"></div>
+</div>
+<script>
+(function(){
+  const manifest = {
+    name: "VistaMorocco",
+    short_name: "VistaMorocco",
+    description: "Réservez riads, restaurants, excursions et activités au Maroc.",
+    start_url: "./",
+    display: "standalone",
+    background_color: "#1A1209",
+    theme_color: "#1A1209",
+    orientation: "portrait-primary",
+    icons: [
+      { src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='100' fill='%231A1209'/><text x='256' y='340' font-size='260' text-anchor='middle' fill='%23D4A843'>✦</text></svg>", sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }
+    ],
+    screenshots: [],
+    categories: ["travel","lifestyle"]
+  };
+  const blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('link');
+  link.rel = 'manifest'; link.href = url;
+  document.currentScript.after(link);
+})();
+</script>
+<script src="js/app.js"></script>
+</body>
+</html>
